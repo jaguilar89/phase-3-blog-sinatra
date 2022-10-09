@@ -14,4 +14,9 @@ class ApplicationController < Sinatra::Base
     post = Post.find(params[:id])
     post.to_json
   end
+
+  post "/posts" do
+    new_post = Post.create(title: params[:title], body: params[:body])
+    new_post.to_json
+  end
 end
