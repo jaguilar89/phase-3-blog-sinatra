@@ -19,4 +19,10 @@ class ApplicationController < Sinatra::Base
     new_post = Post.create(title: params[:title], body: params[:body])
     new_post.to_json
   end
+
+  patch "/posts/:id" do
+    post = Post.find(params[:id])
+    updated_post = post.update(body: params[:body])
+    updated_post.to_json
+  end
 end
