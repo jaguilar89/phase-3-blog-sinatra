@@ -25,4 +25,9 @@ class ApplicationController < Sinatra::Base
     updated_post = post.update(body: params[:body])
     updated_post.to_json
   end
+
+  delete "/posts/:id" do
+    post_to_delete = Post.find(params[:id])
+    post_to_delete.delete
+  end
 end
