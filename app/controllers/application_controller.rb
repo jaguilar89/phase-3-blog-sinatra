@@ -1,10 +1,6 @@
 class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
 
-  get "/" do
-    { message: "Good luck with your project!" }.to_json
-  end
-
   get "/posts" do
     posts = Post.all
     posts.to_json
@@ -13,6 +9,12 @@ class ApplicationController < Sinatra::Base
   get "/posts/:id" do
     post = Post.find(params[:id])
     post.to_json
+  end
+
+  #fetch comments for a post
+  get "/comments/:id" do
+    comments = Comment.where(post_id: params[:id])
+    comments.to_json
   end
 
   post "/posts" do
