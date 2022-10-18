@@ -1,7 +1,7 @@
 class ApplicationController < Sinatra::Base
   set :default_content_type, "application/json"
 
-  get "/posts" do
+  get "/posts/" do
     posts = Post.all
     posts.to_json
   end
@@ -9,6 +9,12 @@ class ApplicationController < Sinatra::Base
   get "/posts/:id" do
     post = Post.find(params[:id])
     post.to_json
+  end
+
+  #fetch all comments
+  get "/comments/" do
+    comments = Comment.all
+    comments.to_json
   end
 
   #fetch comments for a post
@@ -20,6 +26,11 @@ class ApplicationController < Sinatra::Base
   post "/posts" do
     new_post = Post.create(title: params[:title], body: params[:body])
     new_post.to_json
+  end
+
+  post "/comments/:id" do
+    new_comment = Comment.create(name: params[:name], body: params[:body], post_id: params { :post_id })
+    new_comment.to_json
   end
 
   patch "/posts/:id" do
