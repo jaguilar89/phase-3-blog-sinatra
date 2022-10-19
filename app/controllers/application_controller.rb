@@ -28,8 +28,12 @@ class ApplicationController < Sinatra::Base
     new_post.to_json
   end
 
-  post "/comments/:id" do
-    new_comment = Comment.create(name: params[:name], body: params[:body], post_id: params { :post_id })
+  post "/comments/" do
+    new_comment = Comment.create(
+      name: params[:name],
+      body: params[:body],
+      post_id: params[:post_id],
+    )
     new_comment.to_json
   end
 
