@@ -8,18 +8,18 @@ class ApplicationController < Sinatra::Base
 
   get "/posts/:id" do
     post = Post.find(params[:id])
-    post.to_json
+    comments_in_post = post.comments
+
+    post_hash = post.as_json #Post instance converted to hash
+    post_comments_hash = comments_in_post.as_json #Comment instance converted to hash
+    post_hash["comments"] = post_comments_hash #Merges both hashes into one
+
+    post_hash.to_json #returns hash containing the post and its comments, converted to json
   end
 
   #fetch all comments
   get "/comments/" do
     comments = Comment.all
-    comments.to_json
-  end
-
-  #fetch comments for a post
-  get "/comments/:id" do
-    comments = Comment.where(post_id: params[:id])
     comments.to_json
   end
 
