@@ -6,6 +6,7 @@ class ApplicationController < Sinatra::Base
     posts.to_json
   end
 
+  #Fetch blog post along with associated comments
   get "/posts/:id" do
     post = Post.find(params[:id])
     post.to_json(include: :comments)
